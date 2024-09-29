@@ -183,7 +183,7 @@ class Resizer:
                         if blurring_bbox_list is not None and self.blurrer is not None:
                             img = self.blurrer(img=img, bbox_list=blurring_bbox_list)
                         if self.resize_mode == ResizeMode.center_crop:
-                            img = A.center_crop(img, self.image_size, self.image_size)
+                            img = A.crop(img, *A.get_center_crop_coords(img.shape, (self.image_size, self.image_size)))
                         encode_needed = True
                         maybe_blur_still_needed = False
                 elif self.resize_mode in (ResizeMode.border, ResizeMode.keep_ratio_largest):
